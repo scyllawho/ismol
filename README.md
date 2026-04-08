@@ -1,43 +1,35 @@
-# KopiLink — URL Shortener
 
-<img width="864" height="965" alt="Pasted image 20260408193311" src="https://github.com/user-attachments/assets/2cf82d91-8bfc-43fe-b9d4-bca837dc5801" />
+A small project using N8N where a user can create, read, update and delete URLs, mimicking a URL shortener. 
 
+A telegram bot is used to dispatch commands to manage the URLs and an N8N webhook redirects the user to the actual URL.
 
-A Telegram bot named KopiLink that shortens URLs, stores them in Airtable with user and URL IDs, and tracks clicks. Stored links are accessible only to the submitting user.
+![72](https://img.shields.io/badge/n8n-EA4B71.svg?style=for-the-badge&logo=n8n&logoColor=white)![](https://img.shields.io/badge/Docker-2496ED.svg?style=for-the-badge&logo=Docker&logoColor=white)
 
-## Prerequisites
+![[Pasted image 20260408231726.png]]
 
-- Docker
-- Telegram account (bot token)
-- Airtable account (API key and Base)
+```table-of-contents
+```
+## Getting Started
 
-## Quick start
+### Prerequisites
 
-1. Install Docker  
-    Follow Docker’s instructions: [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)
-    
-2. Import workflow into n8n  
-    n8n → Workflows → Import → paste workflow.json
-    
-3. Set credentials in n8n
-    
-    - Telegram: Bot Token
-    - Airtable: API Key / Personal Access Token, Base ID
-    
-4. Activate workflow in n8n
-    
+- Must have [Docker](https://www.docker.com/products/docker-desktop/) installed in your system to host N8N.
+- Airtable and access token to manage records.
+- Telegram account to create and manage bot.
+### Usage
 
-## Configuration notes
+1. Clone or download the repository.
+   `git clone https://github.com/iy4h/KopiLink/tree/main?tab=readme-ov-file`
+2. Run `docker compose up`
+## Commands
 
-- Airtable schema (recommended):
-    - Table: Links
-    - Fields:
-        - id (autonumber) — unique URL id
-        - user_id (number) — Telegram user ID
-        - URL (long Text) (URL sent by user)
-        - clicks (number) — default 0
-    
-- Telegram bot behavior:
-    
-    - Accepts a message containing a URL → 
-    - Supports Inline buttons for: /readall (list user’s links), /delete , /read (sends specific link), /create, /update → (uses callback queries)
+| Command   | Description                                                        | Example                    |
+| --------- | ------------------------------------------------------------------ | -------------------------- |
+| /create   | Creates a new record in Airtable and returns the ID of the record. | /create https://github.com |
+| /read     | Reads a record in Airtable linked to the user                      | /read 1                    |
+| /read-all | Reads all records in Airtable linked to the user                   |                            |
+| /update   | Updates the record in Airtable linked to the user                  |                            |
+| /delete   | Deletes the record in Airtable linked to the user                  |                            |
+## License
+
+Distributed under the Unlicense License. See `LICENSE.txt` for more information.
